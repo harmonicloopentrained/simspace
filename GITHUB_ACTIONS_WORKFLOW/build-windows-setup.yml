@@ -1,0 +1,50 @@
+name: Build ChrysalisVault Setup EXE
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build-windows-setup:
+    name: Build Windows installer
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          if (Test-Path package-lock.json) {
+            npm ci
+          } else {
+            npm install --no-audit --no-fund
+          }
+
+      - name: Prepare offline vault assets
+        run: npm run vault:prepare
+
+      - name: Build NSIS setup executable
+        run: npm run dist:win
+
+      - name: Upload setup artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: ChrysalisVault-Setup
+          path: dist/ChrysalisVault-Setup-*.exe
+          if-no-files-found: error

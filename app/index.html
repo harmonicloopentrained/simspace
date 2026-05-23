@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chrysalis Simulation Vault</title>
+  <link rel="stylesheet" href="vault.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Chrysalis</p>
+        <h1>Simulation Vault</h1>
+        <p class="subtitle">Local, offline launcher for the original HTML simulation branches.</p>
+      </div>
+      <div class="status-card">
+        <span id="count">Loading…</span>
+        <small>Packaged local simulations</small>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="Vault tools">
+      <input id="search" type="search" placeholder="Search simulations, tags, or branches…" autocomplete="off">
+      <button id="reload" type="button">Reload Vault</button>
+    </section>
+
+    <section id="grid" class="grid" aria-live="polite"></section>
+  </main>
+
+  <template id="card-template">
+    <article class="sim-card">
+      <div class="card-topline">
+        <span class="sim-number"></span>
+        <span class="sim-runtime">local html</span>
+      </div>
+      <h2></h2>
+      <p class="description"></p>
+      <p class="filename"></p>
+      <div class="tags"></div>
+      <button class="launch" type="button">Launch Simulation</button>
+    </article>
+  </template>
+
+  <script src="menu.js"></script>
+</body>
+</html>

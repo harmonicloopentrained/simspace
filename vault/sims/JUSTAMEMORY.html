@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineered Chaos: The Cosmic Web</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000000; }
+        canvas { display: block; }
+        #title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px #ff80ff;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">The Cosmic Web</div>
+
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../vendor/three/three.module.js",
+                "three/addons/": "../vendor/three/addons/"
+            }
+        }
+    </script>
+
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+
+        // --- Scene Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.set(0, 50, 150);
+
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.15;
+        controls.minDistance = 50;
+        controls.maxDistance = 300;
+
+
+        // --- Cosmic Web Structure ---
+        const NODE_COUNT = 15;
+        const nodes = [];
+        const nodeGeometry = new THREE.SphereGeometry(2, 32, 32);
+        const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 });
+        const nodeGroup = new THREE.Group();
+
+
+        for (let i = 0; i < NODE_COUNT; i++) {
+            const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
+            node.position.set(
+                (Math.random() - 0.5) * 150,
+                (Math.random() - 0.5) * 150,
+                (Math.random() - 0.5) * 150
+            );
+            nodes.push(node.position);
+            nodeGroup.add(node);
+        }
+        scene.add(nodeGroup);
+
+
+        // --- Particle System ---
+        const PARTICLE_COUNT = 30000;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(PARTICLE_COUNT * 3);
+        const colors = new Float32Array(PARTICLE_COUNT * 3);
+        const particleStates = [];
+
+
+        // --- Initialization ---
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const startNode = nodes[Math.floor(Math.random() * NODE_COUNT)];
+            const endNode = nodes[Math.floor(Math.random() * NODE_COUNT)];
+           
+            positions[i * 3] = startNode.x;
+            positions[i * 3 + 1] = startNode.y;
+            positions[i * 3 + 2] = startNode.z;
+
+
+            particleStates.push({
+                startNode: startNode.clone(),
+                endNode: endNode.clone(),
+                progress: Math.random(), // Start at a random point along the path
+                speed: 0.001 + Math.random() * 0.002,
+                chaos: Math.random() * 2 * Math.PI // Initial chaos phase
+            });
+        }
+
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+
+        const material = new THREE.PointsMaterial({
+            size: 0.3,
+            vertexColors: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+
+
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+
+        // --- Animation Loop ---
+        const clock = new THREE.Clock();
+
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            const elapsedTime = clock.getElapsedTime();
+
+
+            const currentPositions = geometry.attributes.position.array;
+            const currentColors = geometry.attributes.color.array;
+            const color = new THREE.Color();
+
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                const state = particleStates[i];
+               
+                // --- Motion along Filaments ---
+                state.progress += state.speed;
+                if (state.progress >= 1.0) {
+                    state.progress = 0;
+                    // Move to a new path
+                    state.startNode = state.endNode.clone();
+                    state.endNode = nodes[Math.floor(Math.random() * NODE_COUNT)].clone();
+                }
+
+
+                const i3 = i * 3;
+                const pos = new THREE.Vector3().lerpVectors(state.startNode, state.endNode, state.progress);
+               
+                // --- Apply Coherent Chaos ---
+                // The chaos is now a synchronized wave, not random noise
+                const chaos_amplitude = 2.0;
+                const chaos_frequency = 3.0;
+                const wave = Math.sin(state.progress * Math.PI * chaos_frequency + elapsedTime * 0.5);
+               
+                // Use a perpendicular vector for displacement to create a "swirl"
+                const tangent = new THREE.Vector3().subVectors(state.endNode, state.startNode).normalize();
+                const perpendicular = new THREE.Vector3(tangent.y, -tangent.x, tangent.z).normalize();
+               
+                pos.add(perpendicular.multiplyScalar(wave * chaos_amplitude));
+
+
+                currentPositions[i3] = pos.x;
+                currentPositions[i3+1] = pos.y;
+                currentPositions[i3+2] = pos.z;
+
+
+                // --- Color based on flow and state ---
+                const hue = 0.6 + (wave * 0.1); // Shifts between blue and purple
+                const lightness = 0.5 + Math.abs(wave) * 0.3;
+                color.setHSL(hue, 1.0, lightness);
+                currentColors[i3] = color.r;
+                currentColors[i3+1] = color.g;
+                currentColors[i3+2] = color.b;
+            }
+
+
+            geometry.attributes.position.needsUpdate = true;
+            geometry.attributes.color.needsUpdate = true;
+
+
+            renderer.render(scene, camera);
+        }
+       
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+// --- Add a Back Button ---
+        const backButton = document.createElement('a');
+        backButton.href = 'index.html';
+        backButton.textContent = 'Back to Index';
+        backButton.style.position = 'absolute';
+        backButton.style.bottom = '20px';
+        backButton.style.left = '50%';
+        backButton.style.transform = 'translateX(-50%)';
+        backButton.style.padding = '10px 20px';
+        backButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        backButton.style.color = '#fff';
+        backButton.style.border = '1px solid #555';
+        backButton.style.borderRadius = '5px';
+        backButton.style.textDecoration = 'none';
+        backButton.style.fontFamily = 'Inter, sans-serif';
+        document.body.appendChild(backButton);
+
+        animate();
+        animate();
+    </script>
+</body>
+</html>
+
+
+

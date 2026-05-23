@@ -1,0 +1,202 @@
+{
+  "name": "Chrysalis Simulation Vault",
+  "version": "0.1.0",
+  "simulations": [
+    {
+      "id": "complexuniverse-2",
+      "order": 1,
+      "title": "Nested Dimensions",
+      "file": "complexuniverse(2).html",
+      "description": "Nested dimensional reality simulation with coherence, chaos, and time-flow controls.",
+      "tags": [
+        "three",
+        "particles",
+        "dimensions"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "9dvector",
+      "order": 2,
+      "title": "9D Fibonacci Vector",
+      "file": "9Dvector.html",
+      "description": "Canvas-based Genesis Engine / Fibonacci vector simulation with seed-amplitude controls.",
+      "tags": [
+        "canvas",
+        "fibonacci",
+        "vector"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "thebeginningofbeginnings",
+      "order": 3,
+      "title": "The Big Bang: Generative Narrative",
+      "file": "thebeginningofbeginnings.html",
+      "description": "Lattice/particle big-bang style simulation with narrative phases.",
+      "tags": [
+        "three",
+        "lattice",
+        "big-bang"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "polyphoniccosmos",
+      "order": 4,
+      "title": "Polyphonic Cosmos",
+      "file": "polyphoniccosmos.html",
+      "description": "Entangled harmonic spiral field with large particle structures.",
+      "tags": [
+        "three",
+        "particles",
+        "harmonics"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "zomegareality",
+      "order": 5,
+      "title": "The Omega Field",
+      "file": "Zomegareality.html",
+      "description": "State-based Omega Field simulation with mouse coherence interaction.",
+      "tags": [
+        "three",
+        "omega",
+        "field"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "super-highway",
+      "order": 6,
+      "title": "Super Highway",
+      "file": "super_highway.html",
+      "description": "Additional copy/branch of the Polyphonic Cosmos simulation kept as an original vault entry.",
+      "tags": [
+        "three",
+        "particles",
+        "branch"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "strings-and-dimensions",
+      "order": 7,
+      "title": "Strings & Dimensions",
+      "file": "strings_and_dimensions.html",
+      "description": "String/superstring phase simulation unfolding into higher-dimensional flow.",
+      "tags": [
+        "three",
+        "strings",
+        "dimensions"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "hyperdimensionalmultiverse",
+      "order": 8,
+      "title": "Hyper-Dimensional Multiverse",
+      "file": "hyperdimensionalmultiverse.html",
+      "description": "Hyper-dimensional emergent-reality simulation with coherence, chaos, and time controls.",
+      "tags": [
+        "three",
+        "multiverse",
+        "dimensions"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "multiverse",
+      "order": 9,
+      "title": "Emergent Multiverse",
+      "file": "multiverse.html",
+      "description": "Universe-bubble coherence cascade simulation.",
+      "tags": [
+        "three",
+        "bubbles",
+        "cascade"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "orderinthechaos",
+      "order": 10,
+      "title": "Order in the Chaos",
+      "file": "ORDERINTHECHAOS.html",
+      "description": "Coherent torus/field structure simulation with interactive coherence sliders.",
+      "tags": [
+        "three",
+        "torus",
+        "coherence"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "justamultidream",
+      "order": 11,
+      "title": "Just a Multidream",
+      "file": "JUSTAMULTIDREAM.html",
+      "description": "High-coherence multiverse simulation with many universe points and torus formation.",
+      "tags": [
+        "three",
+        "multiverse",
+        "high-coherence"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "justamemory",
+      "order": 12,
+      "title": "Just a Memory",
+      "file": "JUSTAMEMORY.html",
+      "description": "Cosmic web / engineered chaos simulation.",
+      "tags": [
+        "three",
+        "cosmic-web",
+        "memory"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "failedexperimentaluniverse",
+      "order": 13,
+      "title": "Failed Experimental Universe",
+      "file": "failedexperimentaluniverse.html",
+      "description": "Wild asymptotic-float / high-coherence multiverse branch preserved as an experimental sim.",
+      "tags": [
+        "three",
+        "experimental",
+        "float"
+      ],
+      "runtime": "local-html",
+      "included": true
+    },
+    {
+      "id": "big-bang",
+      "order": 14,
+      "title": "The Genesis Field",
+      "file": "BIG_BANG.html",
+      "description": "Large-particle Genesis Field simulation with baseline coherence and variance controls.",
+      "tags": [
+        "three",
+        "genesis",
+        "field"
+      ],
+      "runtime": "local-html",
+      "included": true
+    }
+  ]
+}

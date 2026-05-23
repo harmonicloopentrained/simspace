@@ -1,0 +1,52 @@
+{
+  "name": "chrysalis-simulation-vault",
+  "version": "0.1.0",
+  "description": "Offline Windows installer for the Chrysalis HTML simulation vault.",
+  "private": true,
+  "main": "electron/main.js",
+  "author": "Chrysalis Vault",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "npm run vault:prepare && electron .",
+    "vault:prepare": "node scripts/prepare-vault.js",
+    "dist:win": "npm run vault:prepare && electron-builder --win nsis --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3",
+    "three": "0.160.0"
+  },
+  "build": {
+    "appId": "com.chrysalis.simulationvault",
+    "productName": "ChrysalisVault",
+    "artifactName": "ChrysalisVault-Setup-${version}.${ext}",
+    "asar": true,
+    "files": [
+      "app/**",
+      "electron/**",
+      "vault/**",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Chrysalis Vault"
+    }
+  }
+}

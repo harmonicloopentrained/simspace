@@ -1,0 +1,10 @@
+{
+  "excluded_non_simulation_html": [
+    "creationseed.html",
+    "OURUNIVERSE.html",
+    "ORIGINOFMASS.html",
+    "HARMONICS(1).html",
+    "FORCESANDLAWS(1).html",
+    "EMERGENT_SPACETIME(1).html"
+  ]
+}
